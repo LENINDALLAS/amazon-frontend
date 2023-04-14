@@ -14,12 +14,13 @@ import {
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_SUCCESS,
 } from "../constants/userConstants";
+import { API } from "../constants/constantIndex";
 
 export const register = (name, email, password) => async (dispatch) => {
   dispatch({ type: USER_REGISTER_REQUEST, payload: { email, password } });
   //  console.log('user signin request', email, password);
   try {
-    const { data } = await Axios.post("https://amazona-clone-reactjs.herokuapp.com/api/users/register", {
+    const { data } = await Axios.post(`${API}/api/users/register`, {
       name,
       email,
       password,
@@ -44,7 +45,7 @@ export const signin = (email, password) => async (dispatch) => {
   dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
   //  console.log('user signin request', email, password);
   try {
-    const { data } = await Axios.post("https://amazona-clone-reactjs.herokuapp.com/api/users/signin", { email, password });
+    const { data } = await Axios.post(`${API}/api/users/signin`, { email, password });
     dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
     // console.log('fetch success', data);
@@ -71,7 +72,7 @@ export const detailsUser = (userId) => async (dispatch, getState) => {
   dispatch({ type: USER_DETAILS_REQUEST, payload: userId });
   const { userSignin: { userInfo } } = getState();
   try {
-    const { data } = await Axios.get(`https://amazona-clone-reactjs.herokuapp.com/api/users/${userId}`, {
+    const { data } = await Axios.get(`${API}/api/users/${userId}`, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`
       },
@@ -90,7 +91,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   dispatch({ type: USER_UPDATE_PROFILE_REQUEST, payload: user });
   const { userSignin: { userInfo } } = getState();
   try {
-    const { data } = await Axios.put('https://amazona-clone-reactjs.herokuapp.com/api/users/profile', user, {
+    const { data } = await Axios.put(`${API}/api/users/profile`, user, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`
       },

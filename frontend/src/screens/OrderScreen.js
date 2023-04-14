@@ -7,6 +7,7 @@ import MessageBox from "../components/MessageBox";
 import { detailsOrder, payOrder } from '../actions/orderActions.js'
 import Axios from "axios";
 import { ORDER_PAY_RESET } from "../constants/orderConstants";
+import { API } from "../constants/constantIndex";
 
 function OrderScreen(props) {
 
@@ -25,7 +26,7 @@ function OrderScreen(props) {
 
   useEffect(() => {
     const addPayPalScript = async () => {
-      const { data } = await Axios.get('https://amazona-clone-reactjs.herokuapp.com/api/config/paypal');
+      const { data } = await Axios.get(`${API}/api/config/paypal`);
       // console.log('data paypal', data);
       const script = document.createElement('script');
       script.type = 'text/javascript';

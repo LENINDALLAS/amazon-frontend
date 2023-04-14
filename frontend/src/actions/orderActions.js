@@ -15,7 +15,7 @@ import {
 } from "../constants/orderConstants";
 import { CART_EMPTY } from "../constants/cartConstants"
 import Axios from "axios";
-
+import { API } from "../constants/constantIndex";
 
 export const createOrder = (order) => async (dispatch, getState) => {
   dispatch({ type: ORDER_CREATE_REQUEST, payload: order });
@@ -23,7 +23,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
     const {
       userSignin: { userInfo },
     } = getState();
-    const { data } = await Axios.post("https://amazona-clone-reactjs.herokuapp.com/api/orders", order, {
+    const { data } = await Axios.post(`${API}/api/orders`, order, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
@@ -46,7 +46,7 @@ export const detailsOrder = (orderId) => async (dispatch, getState) => {
   dispatch({ type: ORDER_DETAILS_REQUEST, payload: orderId });
   const { userSignin: { userInfo } } = getState();
   try {
-    const { data } = await Axios.get(`https://amazona-clone-reactjs.herokuapp.com/api/orders/${orderId}`, {
+    const { data } = await Axios.get(`${API}/api/orders/${orderId}`, {
       headers: {
         authorization: `Bearer ${userInfo.token}`
       }
@@ -65,7 +65,7 @@ export const payOrder = (order, paymentResult) => async (dispatch, getState) => 
   dispatch({ type: ORDER_PAY_REQUEST, payload: { order, paymentResult } });
   const { userSignin: { userInfo } } = getState();
   try {
-    const { data } = await Axios.put(`https://amazona-clone-reactjs.herokuapp.com/api/orders/${order._id}/pay`, paymentResult, { headers: { Authorization: `Bearer ${userInfo.token}` } })
+    const { data } = await Axios.put(`${API}/api/orders/${order._id}/pay`, paymentResult, { headers: { Authorization: `Bearer ${userInfo.token}` } })
     dispatch({ type: ORDER_PAY_SUCCESS, payload: data })
   } catch (error) {
     const message = error.response && error.response.data.message
@@ -80,7 +80,7 @@ export const listOrderMine = () => async (dispatch, getState) => {
   const { userSignin: { userInfo } } = getState();
 
   try {
-    const { data } = await Axios.get('https://amazona-clone-reactjs.herokuapp.com/api/orders/mine', {
+    const { data } = await Axios.get(`${API}/api/orders/mine`, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`
       }

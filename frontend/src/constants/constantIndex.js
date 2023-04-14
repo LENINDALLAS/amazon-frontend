@@ -1,0 +1,1 @@
+export const API = "https://amazon-clone-backend-oxts.onrender.com";

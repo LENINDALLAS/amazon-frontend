@@ -5,9 +5,10 @@ import {
   CART_SAVE_PAYMENT_METHOD,
   CART_SAVE_SHIPPING_ADDRESS,
 } from "../constants/cartConstants.js";
+import { API } from "../constants/constantIndex";
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
-  const { data } = await Axios.get(`https://amazona-clone-reactjs.herokuapp.com/api/products/${productId}`);
+  const { data } = await Axios.get(`${API}/api/products/${productId}`);
   dispatch({
     type: CART_ADD_ITEM,
     payload: {
