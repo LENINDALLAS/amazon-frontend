@@ -54,6 +54,7 @@ function OrderScreen(props) {
       }
     }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, orderId, order, sdkReady]);
 
   const successPaymentHandler = (paymentResult) => {
